@@ -1,5 +1,5 @@
-from fastapi import FastAPI, Depends
-from fastapi_cloudauth.firebase import FirebaseCurrentUser, FirebaseClaims
+from fastapi import Depends, FastAPI
+from fastapi_cloudauth.firebase import FirebaseClaims, FirebaseCurrentUser
 
 tags_metadata = [
     {

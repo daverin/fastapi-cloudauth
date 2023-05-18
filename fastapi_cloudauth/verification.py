@@ -9,18 +9,17 @@ from typing import Any, Dict, List, Optional, Type, Union
 import requests
 from fastapi import HTTPException
 from fastapi.security import HTTPAuthorizationCredentials
-from jose import jwt
-from jose.backends.base import Key
-from jose.exceptions import JWTError
-from jose.utils import base64url_decode
-from starlette import status
-
 from fastapi_cloudauth.messages import (
     NO_PUBLICKEY,
     NOT_AUTHENTICATED,
     NOT_VERIFIED,
     SCOPE_NOT_MATCHED,
 )
+from jose import jwt
+from jose.backends.base import Key
+from jose.exceptions import JWTError
+from jose.utils import base64url_decode
+from starlette import status
 
 
 class Verifier(ABC):
@@ -47,9 +46,7 @@ class ExtraVerifier(ABC):
 
 class JWKS:
     def __init__(
-        self,
-        url: str = "",
-        fixed_keys: Optional[Dict[str, Key]] = None,
+        self, url: str = "", fixed_keys: Optional[Dict[str, Key]] = None,
     ):
         """Handle the JSON Web Key Set (JWKS), query and refresh ...
         Args:
@@ -189,8 +186,7 @@ class JWKsVerifier(Verifier):
         if not publickey:
             if self.auto_error:
                 raise HTTPException(
-                    status_code=status.HTTP_401_UNAUTHORIZED,
-                    detail=NO_PUBLICKEY,
+                    status_code=status.HTTP_401_UNAUTHORIZED, detail=NO_PUBLICKEY,
                 )
             else:
                 return None
@@ -351,8 +347,7 @@ class ScopedJWKsVerifier(JWKsVerifier):
         if not matched:
             if self.auto_error:
                 raise HTTPException(
-                    status_code=status.HTTP_403_FORBIDDEN,
-                    detail=SCOPE_NOT_MATCHED,
+                    status_code=status.HTTP_403_FORBIDDEN, detail=SCOPE_NOT_MATCHED,
                 )
             return False
         return True

@@ -38,8 +38,8 @@ class JWKS(BaseJWKS):
 
 class FirebaseClaims(BaseModel):
     user_id: str = Field(alias="user_id")
-    email: str = Field(None, alias="email")
-    scope: str = Field(None)
+    email: Optional[str] = Field(None, alias="email")
+    scope: Optional[str] = Field(None)
 
 
 class FirebaseCurrentUser(UserInfoAuth):
@@ -49,7 +49,9 @@ class FirebaseCurrentUser(UserInfoAuth):
 
     user_info = FirebaseClaims
 
-    def __init__(self, project_id: str, required_scopes: Set[str] = {}, *args: Any, **kwargs: Any):
+    def __init__(
+        self, project_id: str, required_scopes: Set[str] = {}, *args: Any, **kwargs: Any
+    ):
         url = "https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com"
         jwks = JWKS(url=url)
         super().__init__(
@@ -59,8 +61,7 @@ class FirebaseCurrentUser(UserInfoAuth):
             audience=project_id,
             issuer=f"https://securetoken.google.com/{project_id}",
             extra=FirebaseExtraVerifier(
-                project_id=project_id, 
-                required_scopes=required_scopes
+                project_id=project_id, required_scopes=required_scopes
             ),
             **kwargs,
         )
@@ -74,8 +75,8 @@ class FirebaseExtraVerifier(ExtraVerifier):
     def __call__(self, claims: Dict[str, str], auto_error: bool = True) -> bool:
         # auth_time must be past time
         scopes_str = claims.get("scope")
-        
-        scopes = scopes_str.split(' ') if scopes_str is not None else {}
+
+        scopes = scopes_str.split(" ") if scopes_str is not None else {}
 
         for required_scope in self.required_scopes:
             if required_scope not in scopes:

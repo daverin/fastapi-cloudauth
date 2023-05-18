@@ -1,7 +1,8 @@
 import os
+
+from fastapi import Depends, FastAPI
+from fastapi_cloudauth.auth0 import Auth0, Auth0Claims, Auth0CurrentUser
 from pydantic import BaseModel
-from fastapi import FastAPI, Depends
-from fastapi_cloudauth.auth0 import Auth0, Auth0CurrentUser, Auth0Claims
 
 tags_metadata = [
     {

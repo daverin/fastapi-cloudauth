@@ -1,7 +1,8 @@
 import os
+
+from fastapi import Depends, FastAPI
+from fastapi_cloudauth.cognito import Cognito, CognitoClaims, CognitoCurrentUser
 from pydantic import BaseModel
-from fastapi import FastAPI, Depends
-from fastapi_cloudauth.cognito import Cognito, CognitoCurrentUser, CognitoClaims
 
 tags_metadata = [
     {
