@@ -100,7 +100,6 @@ class UserInfoAuth(CloudAuth):
         extra: Optional[ExtraVerifier] = None,
         **kwargs: Any
     ) -> None:
-
         self.user_info = user_info
         self.auto_error = auto_error
         self._verifier = JWKsVerifier(

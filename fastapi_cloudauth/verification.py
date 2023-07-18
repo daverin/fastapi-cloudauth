@@ -46,7 +46,9 @@ class ExtraVerifier(ABC):
 
 class JWKS:
     def __init__(
-        self, url: str = "", fixed_keys: Optional[Dict[str, Key]] = None,
+        self,
+        url: str = "",
+        fixed_keys: Optional[Dict[str, Key]] = None,
     ):
         """Handle the JSON Web Key Set (JWKS), query and refresh ...
         Args:
@@ -186,7 +188,8 @@ class JWKsVerifier(Verifier):
         if not publickey:
             if self.auto_error:
                 raise HTTPException(
-                    status_code=status.HTTP_401_UNAUTHORIZED, detail=NO_PUBLICKEY,
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail=NO_PUBLICKEY,
                 )
             else:
                 return None
@@ -347,7 +350,8 @@ class ScopedJWKsVerifier(JWKsVerifier):
         if not matched:
             if self.auto_error:
                 raise HTTPException(
-                    status_code=status.HTTP_403_FORBIDDEN, detail=SCOPE_NOT_MATCHED,
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail=SCOPE_NOT_MATCHED,
                 )
             return False
         return True
