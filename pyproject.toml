@@ -25,7 +25,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.6.2,<4.0"
+python = ">=3.7,<4.0"
 fastapi = ">= 0.60.1, < 1.0"
 python-jose = {version = ">=3.3.0,<4.0.0", extras = ["cryptography"]}
 requests = ">=2.24.0,<3.0.0"
